@@ -5,6 +5,7 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import "../styles/App.css";
 
 
+
 function HomePage() {
   return (
     <div className="landing-page">
@@ -20,7 +21,7 @@ function HomePage() {
                 <a className="nav-link active" aria-current="page" href="/login">Write</a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="/#">About us</a>
+                <a className="nav-link" href="#">About us</a>
               </li>
               <li className="nav-item">
                 <button type="button" className="get-started btn btn-outline-dark">Read Blogs</button>

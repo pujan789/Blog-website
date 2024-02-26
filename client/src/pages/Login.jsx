@@ -101,8 +101,8 @@ return (
                     <p className="login-card-description">Log into your account</p>
                     <form onSubmit={handleSubmit}>
                       <div className="form-group">
-                        <label htmlFor="email" className="sr-only">Username</label>
-                        <input type="text" name="email" id="email" className="form-control" placeholder="Username" value={email} onChange={handleOnChange} />
+                        <label htmlFor="email" className="sr-only">Email</label>
+                        <input type="text" name="email" id="email" className="form-control" placeholder="Enter your email" value={email} onChange={handleOnChange} />
                       </div>
                       <div className="form-group mb-4">
                         <label htmlFor="password" className="sr-only">Password</label>

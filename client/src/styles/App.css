@@ -1,13 +1,13 @@
-*{
-    background-color: #F6F7FC;
-    
-}
 
+.landing-page{
+  background-color: #F6F7FC;
+ 
+}
 
   
   body{ /* body must be relative for navigation */
     font-family: Arvo;
-    
+  
   }
   
 
