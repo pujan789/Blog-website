@@ -18,7 +18,7 @@ const Profile = () => {
         navigate("/login");
       } else {
         try {
-          const { data } = await axios.post(
+          const { data } = await axios.get(
             "http://localhost:4000/profile",
             {},
             { withCredentials: true }

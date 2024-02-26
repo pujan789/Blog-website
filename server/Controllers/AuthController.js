@@ -70,3 +70,12 @@ module.exports.createPost = async (req, res) => {
     res.status(500).json({ message: "Error creating post" });
   }
 };
+
+// Controllers/AuthController.js
+module.exports.getUserProfile = async (req, res) => {
+  if (!req.user) {
+      return res.status(401).json({ message: "Not authenticated" });
+  }
+  // Assuming req.user is populated by the userVerification middleware
+  res.json({ message: "User profile data", user: req.user });
+};
