@@ -50,7 +50,6 @@ const Profile = () => {
     return <div>Loading...</div>;
   }
 return (
-    
       <section className="h-100 gradient-custom-2">
         <div className="container py-5 h-100">
           <div className="row d-flex justify-content-center align-items-center h-100">
@@ -84,27 +83,27 @@ return (
                 <div className="card-body p-3 text-black">
                   <div className="d-flex justify-content-between align-items-center mb-4">
                     <p className="lead fw-normal mb-0">Recent posts</p>
-                    <p className="mb-0"><a href="/#" className="text-muted">Show all</a></p>
+                    {/* <p className="mb-0"><a href="/#" className="text-muted">Show all</a></p> */}
                   </div>
-                  <ul class="timeline">
-                        <li>
-                           <div class="timeline-body">
-                              <div class="timeline-header">
-                                 <span class="userimage"><img src={user?.avatar} alt="profile image"/></span>
-                                 <span class="username"><a href="/#">{user?.username}</a> <small></small></span>
-                              </div>
-                              <div class="timeline-title">
-                                <h5>Title of the blog</h5>
-                              </div>
-                              <div class="timeline-content" style={{background: "#e0e0e0"}}>
-                                 <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc faucibus turpis quis tincidunt luctus.
-                                    Nam sagittis dui in nunc consequat, in imperdiet nunc sagittis.
-                                 </p>
-                              </div>
-                              <div class="timeline-likes">
+                  <ul className="timeline">
+                  {user.posts && user.posts.map((post, index) => (
+                    <li key={index}>
+                      <div className="timeline-body">
+                        <div className="timeline-header">
+                          <span className="userimage"><img src={user.avatar} alt="profile"/></span>
+                          <span className="username"><a href="/#">{user.username}</a></span>
+                        </div>
+                        
+                        
+                        <div className="timeline-title">
+                          <h5>{post.postTitle.length >= 100 ? post.postTitle.slice(0,100) + "..." : post.postTitle}</h5>
+                        </div>
+                        <div className="timeline-content" style={{background: "#e0e0e0"}}>
+                          <p>{post.postBody.length >= 100 ? post.postBody.slice(0,100) + "..." : post.postBody}</p>
+                        </div>
+                        <div class="timeline-likes">
                                  <div class="stats-right">
-                                    <span class="stats-text">21 Comments</span>
+                                    <span class="stats-text">{post.comments.length} comments</span>
                                  </div>
                                  <div class="stats">
                                     <span class="fa-stack fa-fw stats-icon">
@@ -115,13 +114,14 @@ return (
                                     <i class="fa fa-circle fa-stack-2x text-primary"></i>
                                     <i class="fa fa-thumbs-up fa-stack-1x fa-inverse"></i>
                                     </span>
-                                    <span class="stats-total">4.3k likes</span>
+                                    <span class="stats-total">{post.likes.length} likes</span>
                                  </div>
                               </div>
-                           </div>
-                        </li>
-                     </ul>
-              </div>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+                    </div>
                   </div>
                 </div>
             </div>

@@ -13,13 +13,11 @@ const postSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
-  likes: {
-    type: Number,
-    default: 0,
-  },
+  likes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }], // Array of user IDs who liked the post
   comments: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Comment' // Assuming you might add a Comment model later
+    text: String,
+    postedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    createdAt: { type: Date, default: Date.now }
   }],
   user: {
     type: mongoose.Schema.Types.ObjectId,

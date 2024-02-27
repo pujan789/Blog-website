@@ -81,8 +81,29 @@ module.exports.createPost = async (req, res) => {
 // Controllers/AuthController.js
 module.exports.getUserProfile = async (req, res) => {
   if (!req.user) {
-      return res.status(401).json({ message: "Not authenticated" });
+    return res.status(401).json({ message: "Not authenticated" });
   }
-  // Assuming req.user is populated by the userVerification middleware
-  res.json({ message: "User profile data", user: req.user });
+  
+  try {
+
+    const userWithPosts = await User.findById(req.user.id)
+    .populate({
+      path: 'posts', // Populate posts
+      populate: [
+        { path: 'comments.postedBy', select: 'username' }, // Populate comment creators
+        { path: 'likes', select: 'username' } // Populate users who liked the post
+      ]
+    })
+    .exec();
+    console.log(userWithPosts)
+    
+    if (!userWithPosts) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    
+    res.json({ message: "User profile data", user: userWithPosts });
+  } catch (error) {
+    console.error("Failed to fetch user profile", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
 };
