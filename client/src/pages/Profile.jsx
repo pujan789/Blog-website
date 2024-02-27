@@ -18,12 +18,10 @@ const Profile = () => {
         navigate("/login");
       } else {
         try {
-          const { data } = await axios.get(
-            "http://localhost:4000/profile",
-            {},
-            { withCredentials: true }
-          );
-          if (data.status) {
+          const { data } = await axios.get("http://localhost:4000/profile", {
+            withCredentials: true
+          });
+          if (data.user) {
             setUser(data.user);
             toast(`Hello ${data.user.username}`, {
               position: "top-right",
@@ -46,12 +44,11 @@ const Profile = () => {
     removeCookie("token", { path: '/' });
     navigate("/login");
   };
-
+  
   if (!user) {
     // If user is null (data not yet fetched), return loading message or spinner
     return <div>Loading...</div>;
   }
-  
 return (
     
       <section className="h-100 gradient-custom-2">
@@ -124,9 +121,9 @@ return (
                            </div>
                         </li>
                      </ul>
+              </div>
                   </div>
                 </div>
-              </div>
             </div>
           </div>
       </section>

@@ -64,6 +64,13 @@ module.exports.createPost = async (req, res) => {
 
     await newPost.save();
 
+    await User.findByIdAndUpdate(
+      user._id,
+      { $push: { posts: newPost._id } }, // Assuming 'posts' is the field to store post IDs
+      { new: true, useFindAndModify: false }
+    );
+
+
     res.status(201).json({ message: "Post created successfully", post: newPost });
   } catch (error) {
     console.error(error);
