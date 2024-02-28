@@ -107,3 +107,17 @@ module.exports.getUserProfile = async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }
 };
+
+// In your post controller
+module.exports.getPostById = async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.postId);
+    if (!post) {
+      return res.status(404).json({ message: 'Post not found' });
+    }
+    res.json({ post });
+  } catch (error) {
+    res.status(500).json({ message: 'Server error', error });
+  }
+};
+

@@ -1,5 +1,5 @@
 import {useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -87,7 +87,8 @@ return (
                   </div>
                   <ul className="timeline">
                   {user.posts && user.posts.map((post, index) => (
-                    <li key={index}>
+                    <li key={post._id}>
+                    <Link to={`/post/${post._id}`} className="blog-link">
                       <div className="timeline-body">
                         <div className="timeline-header">
                           <span className="userimage"><img src={user.avatar} alt="profile"/></span>
@@ -118,6 +119,8 @@ return (
                                  </div>
                               </div>
                       </div>
+                      </Link>
+
                     </li>
                   ))}
                 </ul>
