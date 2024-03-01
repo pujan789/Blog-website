@@ -1,15 +1,48 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import Navbar from './Navbar'; // Assuming you have a Navbar component
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import "../styles/blogPage.css"
+import DOMPurify from 'dompurify';
+import LikeButton from './components/LikeButton'; // A button component for liking posts
+import CommentSection from './components/CommentSection'; // A component for displaying and submitting comments
+
+
 
 
 const BlogPost = () => {
   const { postId } = useParams();
   const [post, setPost] = useState(null);
+
+  const handleLike = async () => {
+    try {
+      await axios.put(`http://localhost:4000/posts/${post._id}/like`, {}, { withCredentials: true });
+      setPost(prevState => ({
+        ...prevState,
+        likes: [...prevState.likes, /* New like data */]
+      }));
+      
+    } catch (error) {
+      console.error("Error liking post", error);
+    }
+  };
+
+  const handleCommentSubmit = async (commentText) => {
+
+    try {
+      if  (!commentText || commentText === "") return;
+      const response = await axios.post(`http://localhost:4000/posts/${post._id}/comment`, { text: commentText }, { withCredentials: true });
+      setPost(prevState => ({
+        ...prevState,
+        comments: [...prevState.comments, /* New comment data */]
+      }));
+
+    } catch (error) {
+      console.error("Error submitting comment", error);
+    }
+  };
+
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -27,6 +60,9 @@ const BlogPost = () => {
   if (!post) {
     return <div>Loading...</div>;
   }
+
+  const sanitizedContent = DOMPurify.sanitize(post.postBody);
+
 
   return (
     <>
@@ -51,11 +87,17 @@ const BlogPost = () => {
             </div>
           </div>
         </nav>
-      <div className="blog-post-container">
+        <div className="blog-post-container">
         <h1>{post.postTitle}</h1>
-        <p>{post.postBody}</p>
+        <div
+          className="blog-post-content"
+          dangerouslySetInnerHTML={{ __html: sanitizedContent }}
+        />
       </div>
-    </>
+      {post.user._id}
+      <LikeButton isLiked={post.likes.includes(post.user._id)} onLike={handleLike} />
+      <CommentSection comments={post.comments} onCommentSubmit={handleCommentSubmit} />
+          </>
   );
 };
 

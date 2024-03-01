@@ -121,3 +121,33 @@ module.exports.getPostById = async (req, res) => {
   }
 };
 
+module.exports.likePost = async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.id);
+    if (!post.likes.includes(req.user._id)) {
+      await post.updateOne({ $push: { likes: req.user._id } });
+      res.status(200).json("The post has been liked");
+    } else {
+      await post.updateOne({ $pull: { likes: req.user._id } });
+      res.status(200).json("The post has been unliked");
+    }
+  } catch (err) {
+    res.status(500).json(err);
+  }
+};
+
+module.exports.addComment = async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.id);
+    const comment = {
+      text: req.body.text,
+      user: req.user._id
+    };
+    post.comments.push(comment);
+    await post.save();
+    res.status(200).json("The comment has been added");
+  } catch (err) {
+    res.status(500).json(err);
+  }
+};
+
