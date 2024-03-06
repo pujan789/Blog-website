@@ -1,69 +1,18 @@
-.blogPostContainer {
-    max-width: 800px;
-    margin: 40px auto;
-    background: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  }
-  
-  .blogPostTitle {
-    font-size: 2rem;
-    color: #333;
-    margin-bottom: 20px;
-  }
-  
-  .blogPostBody {
-    font-size: 1rem;
-    color: #666;
-    line-height: 1.6;
-  }
-  
-  .blogPostMeta {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-top: 20px;
-    border-top: 1px solid #eee;
-    padding-top: 20px;
-  }
-  
-  .authorInfo {
-    display: flex;
-    align-items: center;
-  }
-  
-  .authorAvatar {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    margin-right: 15px;
-  }
-  
-  .authorName {
-    font-size: 1rem;
-    color: #333;
-  }
-  
-  .blogPostActions {
-    display: flex;
-    align-items: center;
-  }
-  
-  .actionButton {
-    background: none;
-    border: none;
-    cursor: pointer;
-    margin-left: 15px;
-    font-size: 1.2rem;
-    color: #333;
-  }
-  
-  
-  /* styles/profile.css */
-.blog-link {
-    text-decoration: none; /* Removes underline */
-    color: inherit; /* The link text will inherit the color from its parent */
-    /* Add other styles as necessary */
-  }
-  
+.like-btn {
+  font-size: 24px;
+  color: #333;
+}
+
+.comment-section {
+  margin-top: 40px;
+}
+
+.comment {
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #eee;
+}
+
+.add-comment {
+  margin-top: 20px;
+}

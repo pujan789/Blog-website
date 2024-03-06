@@ -94,7 +94,6 @@ const BlogPost = () => {
           dangerouslySetInnerHTML={{ __html: sanitizedContent }}
         />
       </div>
-      {post.user._id}
       <LikeButton isLiked={post.likes.includes(post.user._id)} onLike={handleLike} />
       <CommentSection comments={post.comments} onCommentSubmit={handleCommentSubmit} />
           </>

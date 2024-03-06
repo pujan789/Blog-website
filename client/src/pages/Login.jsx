@@ -5,7 +5,7 @@ import "../styles/login.css";
 import {  useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import React, { useState } from 'react';
-import loginImage from "../login.jpg"
+import loginImage from "../photos/login.jpg"
 import axios from "axios"
 
 

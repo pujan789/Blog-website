@@ -5,11 +5,6 @@
     box-sizing: border-box;
   }
   
-  body {
-    font-family: "Karla", sans-serif;
-    background-color: #d0d0ce;
-    min-height: 100vh;
-  }
   
   /* Navbar Styles */
   
@@ -40,6 +35,9 @@
   
   /* Main Content Styles */
   .main {
+    font-family: "Karla", sans-serif;
+    background-color: #d0d0ce;
+    min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;

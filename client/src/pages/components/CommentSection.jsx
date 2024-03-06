@@ -5,7 +5,6 @@ const CommentSection = ({ comments, onCommentSubmit }) => {
   const [commentText, setCommentText] = useState('');
 
   const handleSubmit = (event) => {
-    event.preventDefault();
     onCommentSubmit(commentText);
     setCommentText(''); // Clear the input after submission
   };

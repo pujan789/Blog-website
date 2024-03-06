@@ -6,7 +6,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import "../styles/App.css";
 import "../styles/register.css";
-import registerImage from "../register.jpg";
+import registerImage from "../photos/register.jpg";
 
 
 const Signup = () => {

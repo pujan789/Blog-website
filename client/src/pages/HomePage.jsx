@@ -1,5 +1,5 @@
 import React from 'react';
-import image from '../Blogging-Tips-removebg (1).png'; // Assuming you want to use this image
+import image from '../photos/Blogging-Tips-removebg (1).png'; // Assuming you want to use this image
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import "../styles/App.css";
