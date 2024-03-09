@@ -1,3 +1,5 @@
+
+
 .like-btn {
   font-size: 24px;
   color: #333;
@@ -15,4 +17,79 @@
 
 .add-comment {
   margin-top: 20px;
+}
+
+
+.title{
+  font-weight: bolder;
+  font-size: 60px;
+}
+
+.blog-post-content{
+  font: optional;
+}
+
+
+.like-icon {
+  font-size: 24px;
+  cursor: pointer;
+  color: #333; /* Default color for not liked */
+}
+
+.liked {
+  color: #e0245e; /* Change color when liked */
+}
+
+/* You can add additional CSS for transitions or other hover effects */
+.like-icon:hover {
+  color: #e0245e; /* Lighten the color on hover, even if not liked */
+}
+.user-interaction-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 20px;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+}
+
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.user-name-date {
+  display: flex;
+  flex-direction: column;
+}
+
+.user-name {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.post-date {
+  font-size: 14px;
+  color: #757575;
+}
+
+.like-comment-count {
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+}
+
+.icon {
+  margin: 0 10px;
+  cursor: pointer;
+}
+
+.icon-text {
+  margin-left: 5px;
 }
