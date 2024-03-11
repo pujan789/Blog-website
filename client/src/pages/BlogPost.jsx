@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
@@ -8,23 +7,66 @@ import DOMPurify from "dompurify";
 import LikeButton from "./components/LikeButton"; // A button component for liking posts
 import CommentSection from "./components/CommentSection"; // A component for displaying and submitting comments
 import '@fortawesome/fontawesome-free/css/all.min.css'; // If using npm
-
+import { useNavigate, useParams } from "react-router-dom";
+import { useCookies } from 'react-cookie';
 
 const BlogPost = () => {
+  const navigate = useNavigate();
   const { postId } = useParams();
   const [post, setPost] = useState(null);
+  const [user, setUser] = useState(null);
+  const [cookies, removeCookie] = useCookies(['token']); // Assuming you are using 'react-cookie'
+
+
+
+  useEffect(() => {
+
+  
+
+    const verifyCookie = async () => {
+      if (!cookies.token) {
+        navigate("/login");
+      } else {
+        try {
+          const { data } = await axios.get("http://localhost:4000/profile", {
+            withCredentials: true
+          });
+          if (data.user) {
+            setUser(data.user);
+          } else {
+            removeCookie("token");
+            navigate("/login");
+          }
+        } catch (error) {
+          console.error("Verification failed", error);
+          removeCookie("token", { path: '/' });
+          navigate("/login");
+        }
+      }
+    };
+    verifyCookie();
+  }, [cookies, navigate, removeCookie]);
+
 
   const handleLike = async () => {
+    const alreadyLiked = post.likes.includes(user._id);
+
     try {
-      await axios.put(
-        `http://localhost:4000/posts/${post._id}/like`,
-        {},
-        { withCredentials: true }
-      );
-      setPost((prevState) => ({
-        ...prevState,
-        likes: [...prevState.likes /* New like data */],
-      }));
+      const { data } = await axios.get("http://localhost:4000/profile", {
+        withCredentials: true
+      });
+        await axios.put(
+          `http://localhost:4000/posts/${post._id}/like`,
+          {},
+          { withCredentials: true }
+        );
+        setPost((prevState) => ({
+          ...prevState,
+          likes: alreadyLiked
+            ? prevState.likes.filter((likeUserId) => likeUserId !== user._id)
+            : [...prevState.likes, user._id],
+        }));
+
     } catch (error) {
       console.error("Error liking post", error);
     }
@@ -120,19 +162,26 @@ const BlogPost = () => {
       <div className="container mt-5">
         <div className="row">
           <div className="col-lg-8 mx-auto">
-            {/* ...existing post content code... */}
             <h1 className="display-4 mb-5 title">{post.postTitle}</h1>
 
             <div
               className="blog-post-content"
               dangerouslySetInnerHTML={{ __html: sanitizedContent }}/>
 
-            <hr className="mt-5"/>
+            <hr className="my-5"/>
+
+            <div className="d-flex justify-content-between user-interaction-section">
+              <LikeButton
+                isLiked={post.likes.includes(user?._id)}
+                onLike={handleLike}
+              />
+
+<div>
 
             <div className="user-interaction-section">
               <div className="user-info">
                 <img
-                  src={post.user?.avatar + ".jpg"}
+                  src={user?.avatar}
                   alt="User Avatar"
                   className="user-avatar"
                 />
@@ -155,18 +204,15 @@ const BlogPost = () => {
                 </span>
               </div>
             </div>
+            </div>
+            </div>
 
-            
-
-            <LikeButton
-              isLiked={post.likes.includes(post.user._id)}
-              onLike={handleLike}
-            />
-            
-            <CommentSection
-              comments={post.comments}
-              onCommentSubmit={handleCommentSubmit}
-            />
+            <div className="mt-1">
+              <CommentSection
+                comments={post.comments}
+                onCommentSubmit={handleCommentSubmit}
+              />
+                          </div>
           </div>
         </div>
       </div>
