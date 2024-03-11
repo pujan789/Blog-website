@@ -161,7 +161,7 @@ const BlogPost = () => {
       </nav>
       <div className="container mt-5">
         <div className="row">
-          <div className="col-lg-8 mx-auto">
+          <div className="col-lg-9 mx-auto">
             <h1 className="display-4 mb-5 title">{post.postTitle}</h1>
 
             <div

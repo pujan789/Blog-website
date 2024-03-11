@@ -3,9 +3,7 @@
   font-size: 60px;
 }
 
-.blog-post-content {
-  /* If you need specific font styling, add here, otherwise remove this class if 'font: optional;' was a placeholder */
-}
+
 
 /* User interaction section styling, including likes and comments indicators */
 .user-interaction-section {

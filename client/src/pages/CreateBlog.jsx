@@ -6,16 +6,42 @@ import { useNavigate } from 'react-router-dom';
 
 
 const CreateBlog = () => {
-  const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
+  const [postTitle, setTitle] = useState('');
+  const [postBody, setContent] = useState('');
   const navigate = useNavigate();
+
+  const modules = {
+    toolbar: [
+      [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+      [{ 'font': [] }],
+      ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+      ['blockquote', 'code-block'],
+      
+      [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+
+      
+      [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
+      [{ 'align': [] }],
+  
+      ['link', 'image', 'video']                         // link and image, video
+    ],
+  };
+  
+  const formats = [
+    'header', 'font', 'size',
+    'bold', 'italic', 'underline', 'strike', 'blockquote',
+    'list', 'bullet', 'indent',
+    'link', 'image', 'video',
+    'color', 'background', 'align', 'direction', 'code-block'
+  ];
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       // Assuming your API endpoint for creating a post is /api/posts
-      await axios.post('http://localhost:4000/api/posts', { title, content }, { withCredentials: true });
-      navigate('/'); // Redirect to home or blog list page after posting
+      await axios.post('http://localhost:4000/blog', { postTitle, postBody }, { withCredentials: true });
+      navigate('/profile');
     } catch (error) {
       console.error('Failed to create post:', error);
     }
@@ -31,14 +57,20 @@ const CreateBlog = () => {
             type="text"
             className="form-control"
             id="titleInput"
-            value={title}
+            value={postTitle}
             onChange={(e) => setTitle(e.target.value)}
             required
           />
         </div>
         <div className="mb-3">
           <label htmlFor="contentInput" className="form-label">Content</label>
-          <ReactQuill theme="snow" value={content} onChange={setContent} />
+          <ReactQuill
+  theme="snow"
+  value={postBody}
+  onChange={setContent}
+  modules={modules}
+  formats={formats}
+/>
         </div>
         <button type="submit" className="btn btn-primary">Submit</button>
       </form>
