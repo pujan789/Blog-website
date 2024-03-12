@@ -1,55 +1,15 @@
-import {useEffect, useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
-import { useCookies } from "react-cookie";
-import axios from "axios";
-import { toast } from "react-toastify";
+import {Link } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import "../styles/profile.css"
-import DOMPurify from 'dompurify';
 import Navbar from "./components/AuthNavbar";
+import useAuth from './components/useAuth';
 
 
 const Profile = () => {
-  const navigate = useNavigate();
-  const [cookies, removeCookie] = useCookies(['token']);
-  const [user, setUser] = useState(null);
-
-  useEffect(() => {
-    const verifyCookie = async () => {
-      if (!cookies.token) {
-        navigate("/login");
-      } else {
-        try {
-          const { data } = await axios.get("http://localhost:4000/profile", {
-            withCredentials: true
-          });
-          if (data.user) {
-            setUser(data.user);
-            toast(`Hello ${data.user.username}`, {
-              position: "top-right",
-            });
-          } else {
-            removeCookie("token");
-            navigate("/login");
-          }
-        } catch (error) {
-          console.error("Verification failed", error);
-          removeCookie("token", { path: '/' });
-          navigate("/login");
-        }
-      }
-    };
-    verifyCookie();
-  }, [cookies, navigate, removeCookie]);
-
-  const Logout = () => {
-    removeCookie("token", { path: '/' });
-    navigate("/login");
-  };
+  const user = useAuth(); // This will redirect to login if not authenticated
   
   if (!user) {
-    // If user is null (data not yet fetched), return loading message or spinner
     return <div>Loading...</div>;
   }
 return (

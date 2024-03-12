@@ -7,46 +7,19 @@ import DOMPurify from "dompurify";
 import LikeButton from "./components/LikeButton"; // A button component for liking posts
 import CommentSection from "./components/CommentSection"; // A component for displaying and submitting comments
 import '@fortawesome/fontawesome-free/css/all.min.css'; // If using npm
-import { useNavigate, useParams } from "react-router-dom";
-import { useCookies } from 'react-cookie';
+import { useParams } from "react-router-dom";
 import Navbar from "./components/AuthNavbar";
+import useAuth from './components/useAuth';
+
 
 const BlogPost = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const { postId } = useParams();
   const [post, setPost] = useState(null);
-  const [user, setUser] = useState(null);
-  const [cookies, removeCookie] = useCookies(['token']); // Assuming you are using 'react-cookie'
 
 
+  const user = useAuth(); // This will redirect to login if not authenticated
 
-  useEffect(() => {
-
-  
-
-    const verifyCookie = async () => {
-      if (!cookies.token) {
-        navigate("/login");
-      } else {
-        try {
-          const { data } = await axios.get("http://localhost:4000/profile", {
-            withCredentials: true
-          });
-          if (data.user) {
-            setUser(data.user);
-          } else {
-            removeCookie("token");
-            navigate("/login");
-          }
-        } catch (error) {
-          console.error("Verification failed", error);
-          removeCookie("token", { path: '/' });
-          navigate("/login");
-        }
-      }
-    };
-    verifyCookie();
-  }, [cookies, navigate, removeCookie]);
 
 
   const handleLike = async () => {

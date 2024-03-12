@@ -1,10 +1,11 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css'; // Include the Quill CSS
 import axios from 'axios';
 import Navbar from './components/AuthNavbar';
-import { useNavigate, Link } from "react-router-dom";
-import { useCookies } from "react-cookie";
+import { useNavigate } from "react-router-dom";
+import useAuth from './components/useAuth';
+
 
 const CreateBlog = () => {
   const [postTitle, setTitle] = useState('');
@@ -37,36 +38,10 @@ const CreateBlog = () => {
   ];
 
 
-  const [cookies, removeCookie] = useCookies(['token']);
-  const [user, setUser] = useState(null);
 
-  useEffect(() => {
-    const verifyCookie = async () => {
-      if (!cookies.token) {
-        navigate("/login");
-      } else {
-        try {
-          const { data } = await axios.get("http://localhost:4000/profile", {
-            withCredentials: true
-          });
-          if (data.user) {
-            setUser(data.user);
-          } else {
-            removeCookie("token");
-            navigate("/login");
-          }
-        } catch (error) {
-          console.error("Verification failed", error);
-          removeCookie("token", { path: '/' });
-          navigate("/login");
-        }
-      }
-    };
-    verifyCookie();
-  }, [cookies, navigate, removeCookie]);
+  const user = useAuth(); // This will redirect to login if not authenticated
 
   
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
