@@ -7,6 +7,8 @@ import { ToastContainer, toast } from "react-toastify";
 import React, { useState } from 'react';
 import loginImage from "../photos/login.jpg"
 import axios from "axios"
+import Navbar from './components/Navbar';
+
 
 
 const Login = () => {
@@ -67,28 +69,7 @@ const Login = () => {
 
 return (
       <div className="landing-page">
-            <nav className="navbar navbar-expand-lg navbar-light custom-navbar">
-          <div className="container-fluid">
-            <a className="navbar-brand head-title" href="/#">BlogFluent</a>
-            <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-              <span className="navbar-toggler-icon"></span>
-            </button>
-            <div className="collapse navbar-collapse justify-content-end" id="navbarNav">
-              <ul className="navbar-nav">
-                <li className="nav-item">
-                  <a className="nav-link active" aria-current="page" href="/login">Write</a>
-                </li>
-                <li className="nav-item">
-                  <a className="nav-link" href="/#">About us</a>
-                </li>
-                <li className="nav-item">
-                  <button type="button" className="get-started btn btn-outline-dark">Read Blogs</button>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </nav>
-  
+<Navbar/>  
         <main className="d-flex align-items-center min-vh-100 py-md-0">
           <div className="container">
             <div className="card login-card">

@@ -3,7 +3,7 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css'; // Include the Quill CSS
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-
+import Navbar from './components/AuthNavbar';
 
 const CreateBlog = () => {
   const [postTitle, setTitle] = useState('');
@@ -48,6 +48,8 @@ const CreateBlog = () => {
   };
 
   return (
+    <>
+    <Navbar/>
     <div className="container mt-5">
       <h2>Create a New Blog Post</h2>
       <form onSubmit={handleSubmit}>
@@ -75,6 +77,7 @@ const CreateBlog = () => {
         <button type="submit" className="btn btn-primary">Submit</button>
       </form>
     </div>
+    </>
   );
 };
 

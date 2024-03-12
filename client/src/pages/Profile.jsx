@@ -7,6 +7,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import "../styles/profile.css"
 import DOMPurify from 'dompurify';
+import Navbar from "./components/AuthNavbar";
 
 
 const Profile = () => {
@@ -52,6 +53,8 @@ const Profile = () => {
     return <div>Loading...</div>;
   }
 return (
+<>
+<Navbar/>
       <section className="h-100 gradient-custom-2">
         <div className="container py-5 h-100">
           <div className="row d-flex justify-content-center align-items-center h-100">
@@ -132,6 +135,7 @@ return (
             </div>
           </div>
       </section>
+      </>  
   );
 }
 

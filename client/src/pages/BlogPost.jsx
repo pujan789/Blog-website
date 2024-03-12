@@ -9,6 +9,7 @@ import CommentSection from "./components/CommentSection"; // A component for dis
 import '@fortawesome/fontawesome-free/css/all.min.css'; // If using npm
 import { useNavigate, useParams } from "react-router-dom";
 import { useCookies } from 'react-cookie';
+import Navbar from "./components/AuthNavbar";
 
 const BlogPost = () => {
   const navigate = useNavigate();
@@ -112,53 +113,7 @@ const BlogPost = () => {
 
   return (
     <>
-      <nav className="navbar navbar-expand-lg navbar-light custom-navbar">
-        <div className="container-fluid">
-          <a className="navbar-brand head-title" href="/#">
-            BlogFluent
-          </a>
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarNav"
-            aria-controls="navbarNav"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span className="navbar-toggler-icon"></span>
-          </button>
-          <div
-            className="collapse navbar-collapse justify-content-end"
-            id="navbarNav"
-          >
-            <ul className="navbar-nav">
-              <li className="nav-item">
-                <a
-                  className="nav-link active"
-                  aria-current="page"
-                  href="/login"
-                >
-                  Write
-                </a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="/#">
-                  About us
-                </a>
-              </li>
-              <li className="nav-item">
-                <button
-                  type="button"
-                  className="get-started btn btn-outline-dark"
-                >
-                  Read Blogs
-                </button>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
+    <Navbar/>
       <div className="container mt-5">
         <div className="row">
           <div className="col-lg-9 mx-auto">
