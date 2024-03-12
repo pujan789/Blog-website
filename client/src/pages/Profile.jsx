@@ -4,9 +4,14 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import "../styles/profile.css"
 import Navbar from "./components/AuthNavbar";
 import useAuth from './components/useAuth';
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+
 
 
 const Profile = () => {
+    const navigate = useNavigate();
+
   const user = useAuth(); // This will redirect to login if not authenticated
 
   function convertToPlain(html){
@@ -35,7 +40,7 @@ return (
                       className="img-fluid img-thumbnail  mb-2"
                       style={{ width: '150px', zIndex: 1 }}
                     />
-                    <button type="button" className="btn btn-outline-dark" data-mdb-ripple-color="dark" style={{ zIndex: 1, marginTop:"55px" }}>
+                    <button type="button" className="btn btn-outline-dark" data-mdb-ripple-color="dark" style={{ zIndex: 1, marginTop:"55px" }} onClick={() => navigate("/create")}>
                       Start writing
                     </button>
                   </div>
