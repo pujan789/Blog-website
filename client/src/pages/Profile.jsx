@@ -8,6 +8,13 @@ import useAuth from './components/useAuth';
 
 const Profile = () => {
   const user = useAuth(); // This will redirect to login if not authenticated
+
+  function convertToPlain(html){
+    var tempDivElement = document.createElement("div");
+    tempDivElement.innerHTML = html;
+    return tempDivElement.textContent || tempDivElement.innerText || "";
+}
+
   
   if (!user) {
     return <div>Loading...</div>;
@@ -48,7 +55,6 @@ return (
                 <div className="card-body p-3 text-black">
                   <div className="d-flex justify-content-between align-items-center mb-4">
                     <p className="lead fw-normal mb-0">Recent posts</p>
-                    {/* <p className="mb-0"><a href="/#" className="text-muted">Show all</a></p> */}
                   </div>
                   <ul className="timeline">
                   {user.posts && user.posts.map((post, index) => (
@@ -65,7 +71,7 @@ return (
                           <h5>{post.postTitle.length >= 100 ? post.postTitle.slice(0,100) + "..." : post.postTitle}</h5>
                         </div>
                         <div className="timeline-content" style={{background: "#e0e0e0"}}>
-                          <p>{post.postBody.length >= 100 ? post.postBody.slice(0,100) + "..." : post.postBody}</p>
+                          <p>{convertToPlain(post.postBody).length >= 100 ? convertToPlain(post.postBody).slice(0,115) + "..." : convertToPlain(post.postBody)}</p>
                         </div>
                         <div class="timeline-likes">
                                  <div class="stats-right">

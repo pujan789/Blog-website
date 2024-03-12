@@ -235,3 +235,13 @@
         margin-left: 44px
     }
     
+    a {
+        text-decoration: none;
+        color: black;
+      }
+      
+      a:hover {
+        color: #575d63;
+        text-decoration: none;
+        cursor: pointer;
+      }
