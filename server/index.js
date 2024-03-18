@@ -6,7 +6,7 @@ require("dotenv").config();
 const cookieParser = require("cookie-parser");
 const authRoute = require("./Routes/AuthRoute");
 const blogRoute = require("./Routes/AuthRoute");
-const { MONGO_URL,PORT } = process.env;
+const { MONGO_URL,PORT, CORS_URL } = process.env;
 
 
 
@@ -19,9 +19,10 @@ app.listen(PORT, () => {
   console.log(`Server is listening on port ${PORT}`);
 });
 
+console.log(CORS_URL)
 app.use(
   cors({
-    origin: ["http://localhost:3000"],
+    origin: [CORS_URL],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
