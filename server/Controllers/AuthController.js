@@ -2,6 +2,8 @@ const User = require("../Models/UserModel");
 const { createSecretToken } = require("../util/SecretToken");
 const bcrypt = require("bcryptjs");
 const Post = require("../Models/PostModel");
+const { faker } = require('@faker-js/faker');
+
 
 
 
@@ -57,13 +59,9 @@ module.exports.createPost = async (req, res) => {
     const { postTitle, postBody } = req.body;
     let image = '';
     if (req.file) {
-      console.log("image was sent")
       image = req.file.path; 
     }
-    else{
-      console.log("image not sent")
-    }
-    const user = req.user; // This is now available thanks to the userVerification middleware
+    const user = req.user; 
     const newPost = new Post({
       postTitle,
       postBody,
@@ -75,7 +73,7 @@ module.exports.createPost = async (req, res) => {
 
     await User.findByIdAndUpdate(
       user._id,
-      { $push: { posts: newPost._id } }, // Assuming 'posts' is the field to store post IDs
+      { $push: { posts: newPost._id } }, 
       { new: true, useFindAndModify: false }
     );
 
@@ -87,7 +85,6 @@ module.exports.createPost = async (req, res) => {
   }
 };
 
-// Controllers/AuthController.js
 module.exports.getUserProfile = async (req, res) => {
   if (!req.user) {
     return res.status(401).json({ message: "Not authenticated" });
@@ -104,7 +101,6 @@ module.exports.getUserProfile = async (req, res) => {
       ]
     })
     .exec();
-    // console.log(userWithPosts)
     
     if (!userWithPosts) {
       return res.status(404).json({ message: "User not found" });
@@ -174,4 +170,20 @@ module.exports.getAllPosts = async (req, res) => {
   }
 };
 
+module.exports.updateAvatar = async (req, res) => {
+  try {
+    const user = await User.findById(req.user._id);
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
 
+    // Generate a new avatar using faker
+    user.avatar = faker.image.avatar();
+    await user.save();
+
+    res.json({ avatar: user.avatar });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Could not update avatar' });
+  }
+};

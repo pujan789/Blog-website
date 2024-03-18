@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { Signup, Login, createPost, getPostById, likePost, addComment, getAllPosts } = require('../Controllers/AuthController');
+const { Signup, Login, createPost, getPostById, likePost, addComment, getAllPosts, updateAvatar } = require('../Controllers/AuthController');
 const { userVerification } = require("../Middlewares/AuthMiddleware");
 const { getUserProfile } = require('../Controllers/AuthController');
 const upload = require('../upload'); 
@@ -17,6 +17,9 @@ router.put('/posts/:id/like', userVerification, likePost);
 
 // To comment on a post
 router.post('/posts/:id/comment', userVerification, addComment);
+
+router.put('/avatar', userVerification, updateAvatar);
+
 
 router.get('/posts', getAllPosts);
 
