@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import axios from 'axios';
-import Navbar from './components/AuthNavbar';
+import Navbar from './components/Navbar'; // Update the import path according to your project structure
 import { useNavigate } from "react-router-dom";
 import useAuth from './components/useAuth';
 

@@ -8,7 +8,7 @@ import LikeButton from "./components/LikeButton"; // A button component for liki
 import CommentSection from "./components/CommentSection"; // A component for displaying and submitting comments
 import '@fortawesome/fontawesome-free/css/all.min.css'; // If using npm
 import { useParams } from "react-router-dom";
-import Navbar from "./components/AuthNavbar";
+import Navbar from './components/Navbar'; // Update the import path according to your project structure
 import useAuth from './components/useAuth';
 
 

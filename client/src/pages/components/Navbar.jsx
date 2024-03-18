@@ -1,10 +1,35 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useCookies } from "react-cookie";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, useSearchParams } from "react-router-dom";
+import axios from 'axios';
+
 
 const Navbar = ({isAuthenticated}) => {
   const navigate = useNavigate();
   const [cookies, removeCookie] = useCookies(["token"]);
+  const [isAuth, setAuth] = useState(false)
+
+  useEffect(() => {
+    const verifyCookie = async () => {
+      if (!cookies.token) {
+        navigate("/login");
+      } else {
+        try {
+          const { data } = await axios.get("http://localhost:4000/profile", {
+            withCredentials: true
+          });
+          if (data.user) {
+            setAuth(true);}
+        } catch (error) {
+          console.error("Verification failed", error);
+        }
+      }
+    };
+    verifyCookie();
+  }, [cookies, navigate, removeCookie]);
+
+
+
 
   const Logout = () => {
     removeCookie("token", { path: "/" });
@@ -33,6 +58,7 @@ const Navbar = ({isAuthenticated}) => {
             className="collapse navbar-collapse justify-content-end"
             id="navbarNav"
           >
+          {(!isAuth) ?
             <ul className="navbar-nav">
               <li className="nav-item">
                 <a
@@ -58,6 +84,39 @@ const Navbar = ({isAuthenticated}) => {
                 </button>
               </li>
             </ul>
+            : 
+            <ul className="navbar-nav">
+              <li className="nav-item">
+                <a
+                  className="nav-link active"
+                  aria-current="page"
+                  href="/create"
+                >
+                  Write
+                </a>
+              </li>
+              <li className="nav-item">
+                <a className="nav-link" href="/profile">
+                  Profile
+                </a>
+              </li>
+              <li className="nav-item">
+                <a className="nav-link" href="/read">
+                  Read
+                </a>
+              </li>
+              <li className="nav-item">
+                <button
+                  type="button"
+                  className="get-started btn btn-outline-dark"
+                  onClick={Logout}
+                >
+                  Logout
+                </button>
+              </li>
+            </ul>
+
+          }
           </div>
         </div>
       </nav>
