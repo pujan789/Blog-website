@@ -52,6 +52,7 @@ const Navbar = ({isAuthenticated}) => {
                 <button
                   type="button"
                   className="get-started btn btn-outline-dark"
+                  onClick={() => {navigate("/read")}}
                 >
                   Read Blogs
                 </button>

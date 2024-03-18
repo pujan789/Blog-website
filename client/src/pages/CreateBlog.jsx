@@ -1,16 +1,18 @@
 import React, { useState } from 'react';
 import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css'; // Include the Quill CSS
+import 'react-quill/dist/quill.snow.css';
 import axios from 'axios';
 import Navbar from './components/AuthNavbar';
 import { useNavigate } from "react-router-dom";
 import useAuth from './components/useAuth';
 
-
 const CreateBlog = () => {
   const [postTitle, setTitle] = useState('');
   const [postBody, setContent] = useState('');
+  const [postImage, setPostImage] = useState(null); // New state for image
+  const [imagePreview, setImagePreview] = useState(''); // New state for image preview
   const navigate = useNavigate();
+  const user = useAuth();
 
   const modules = {
     toolbar: [
@@ -38,15 +40,34 @@ const CreateBlog = () => {
   ];
 
 
+  // Image selection handler
+  const handleImageChange = (e) => {
+    if (e.target.files[0]) {
+      setPostImage(e.target.files[0]);
+      setImagePreview(URL.createObjectURL(e.target.files[0]));
+    }
+  };
 
-  const user = useAuth(); // This will redirect to login if not authenticated
-
-  
+  // Submit handler
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Create FormData and append data
+    const formData = new FormData();
+    formData.append('postTitle', postTitle);
+    formData.append('postBody', postBody);
+    if (postImage) {
+      formData.append('image', postImage); // Append image file
+    }
+
     try {
-      // Assuming your API endpoint for creating a post is /api/posts
-      await axios.post('http://localhost:4000/blog', { postTitle, postBody }, { withCredentials: true });
+      // Submit FormData
+      await axios.post('http://localhost:4000/blog', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+        withCredentials: true,
+      });
       navigate('/profile');
     } catch (error) {
       console.error('Failed to create post:', error);
@@ -55,34 +76,45 @@ const CreateBlog = () => {
 
   return (
     <>
-    <Navbar/>
-    <div className="container mt-5">
-      <h2>Create a New Blog Post</h2>
-      <form onSubmit={handleSubmit}>
-        <div className="mb-3">
-          <label htmlFor="titleInput" className="form-label">Title</label>
-          <input
-            type="text"
-            className="form-control"
-            id="titleInput"
-            value={postTitle}
-            onChange={(e) => setTitle(e.target.value)}
-            required
-          />
-        </div>
-        <div className="mb-3">
-          <label htmlFor="contentInput" className="form-label">Content</label>
-          <ReactQuill
-  theme="snow"
-  value={postBody}
-  onChange={setContent}
-  modules={modules}
-  formats={formats}
-/>
-        </div>
-        <button type="submit" className="btn btn-primary">Submit</button>
-      </form>
-    </div>
+      <Navbar/>
+      <div className="container mt-5">
+        <h2>Create a New Blog Post</h2>
+        <form onSubmit={handleSubmit}>
+          <div className="mb-3">
+            <label htmlFor="titleInput" className="form-label">Title</label>
+            <input
+              type="text"
+              className="form-control"
+              id="titleInput"
+              value={postTitle}
+              onChange={(e) => setTitle(e.target.value)}
+              required
+            />
+          </div>
+          <div className="mb-3">
+            <label htmlFor="contentInput" className="form-label">Content</label>
+            <ReactQuill
+              theme="snow"
+              value={postBody}
+              onChange={setContent}
+              modules={modules}
+              formats={formats}
+            />
+          </div>
+          <div className="mb-3">
+            <label htmlFor="imageInput" className="form-label">Image</label>
+            <input
+              type="file"
+              className="form-control"
+              id="imageInput"
+              onChange={handleImageChange}
+              accept="image/*"
+            />
+            {imagePreview && <img src={imagePreview} alt="Preview" className="img-thumbnail mt-2" style={{ maxWidth: '200px' }} />}
+          </div>
+          <button type="submit" className="btn btn-primary">Submit</button>
+        </form>
+      </div>
     </>
   );
 };

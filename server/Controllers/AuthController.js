@@ -55,11 +55,20 @@ module.exports.Login = async (req, res) => { // Removed 'next' as it's not used
 module.exports.createPost = async (req, res) => {
   try {
     const { postTitle, postBody } = req.body;
+    let image = '';
+    if (req.file) {
+      console.log("image was sent")
+      image = req.file.path; 
+    }
+    else{
+      console.log("image not sent")
+    }
     const user = req.user; // This is now available thanks to the userVerification middleware
     const newPost = new Post({
       postTitle,
       postBody,
-      user: user._id, // Assign the user ID to the post
+      user: user._id, 
+      image: image
     });
 
     await newPost.save();
@@ -95,7 +104,7 @@ module.exports.getUserProfile = async (req, res) => {
       ]
     })
     .exec();
-    console.log(userWithPosts)
+    // console.log(userWithPosts)
     
     if (!userWithPosts) {
       return res.status(404).json({ message: "User not found" });
@@ -150,4 +159,19 @@ module.exports.addComment = async (req, res) => {
     res.status(500).json(err);
   }
 };
+
+
+module.exports.getAllPosts = async (req, res) => {
+  try {
+    const posts = await Post.find()
+      .populate('user', 'username avatar') // Populate user details
+      .populate('comments.postedBy', 'username') // Populate comment creator details
+      .sort({ createdAt: -1 }); // Sort by creation date, newest first
+    res.json({ message: "All posts retrieved successfully", posts });
+  } catch (error) {
+    console.error("Failed to fetch posts", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
 

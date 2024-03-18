@@ -30,6 +30,10 @@ const postSchema = new mongoose.Schema({
     ref: 'User',
     required: true,
   },
+  image: {
+    type: String,
+    default: '', // Default can be an empty string or a placeholder image URL
+  },
 });
 
 module.exports = mongoose.model("Post", postSchema);

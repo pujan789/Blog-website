@@ -49,7 +49,7 @@ const Navbar = ({isAuthenticated}) => {
                 </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#">
+                <a className="nav-link" href="/read">
                   Read
                 </a>
               </li>

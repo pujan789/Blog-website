@@ -32,3 +32,5 @@ app.use(
   
   app.use("/", authRoute);
   app.use("/", blogRoute);
+  app.use('/uploads', express.static('uploads'));
+
