@@ -245,3 +245,21 @@
         text-decoration: none;
         cursor: pointer;
       }
+
+
+      .avatar-container {
+        position: relative;
+        display: inline-block; /* Allows us to position the reload button relative to the avatar */
+      }
+      
+      .reload-btn {
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%); /* Centers the button horizontally */
+        display: none; /* Hide by default */
+      }
+      
+      .avatar-container:hover .reload-btn {
+        display: block; /* Show the button on hover */
+      }

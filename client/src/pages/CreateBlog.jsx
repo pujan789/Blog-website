@@ -78,7 +78,7 @@ const CreateBlog = () => {
     <>
       <Navbar/>
       <div className="container mt-5">
-        <h2>Create a New Blog Post</h2>
+        <h2 className=' fw-bold mb-4'>Create a New Blog Post</h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-3">
             <label htmlFor="titleInput" className="form-label">Title</label>
@@ -102,7 +102,7 @@ const CreateBlog = () => {
             />
           </div>
           <div className="mb-3">
-            <label htmlFor="imageInput" className="form-label">Image</label>
+            <label htmlFor="imageInput" className="form-label">Preview Image</label>
             <input
               type="file"
               className="form-control"
