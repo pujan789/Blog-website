@@ -12,7 +12,7 @@ const Navbar = ({isAuthenticated}) => {
   useEffect(() => {
     const verifyCookie = async () => {
       if (!cookies.token) {
-        navigate("/login");
+        {}
       } else {
         try {
           const { data } = await axios.get("http://localhost:4000/profile", {
@@ -67,11 +67,6 @@ const Navbar = ({isAuthenticated}) => {
                   href="/login"
                 >
                   Login
-                </a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="#">
-                  About us
                 </a>
               </li>
               <li className="nav-item">

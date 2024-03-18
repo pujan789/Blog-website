@@ -27,11 +27,7 @@ const Profile = () => {
               withCredentials: true,
             });
             if (data.user) {
-              setUser(data.user);
-            } else {
-              removeCookie("token");
-              navigate("/login");
-            }
+              setUser(data.user);}
           } catch (error) {
             console.error("Verification failed", error);
             removeCookie("token", { path: "/" });
