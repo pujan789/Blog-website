@@ -19,16 +19,14 @@ app.listen(PORT, () => {
   console.log(`Server is listening on port ${PORT}`);
 });
 
-const corsOpts = {
-  origin: process.env.CORS_URL,
-  credentials: true,
-  methods: ['GET','POST','HEAD','PUT','PATCH','DELETE'],
-  allowedHeaders: ['Content-Type'],
-  exposedHeaders: ['Content-Type']
-};
-
-app.use(cors(corsOpts));
-app.use(cookieParser());
+app.use(
+  cors({
+    origin: CORS_URL,
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+  })
+  );
+  app.use(cookieParser());
   
   app.use(express.json());
   
