@@ -26,11 +26,11 @@ const BlogPost = () => {
     const alreadyLiked = post.likes.includes(user._id);
 
     try {
-      const { data } = await axios.get("http://localhost:4000/profile", {
+      const { data } = await axios.get(process.env.REACT_APP_BACKEND + "/profile", {
         withCredentials: true
       });
         await axios.put(
-          `http://localhost:4000/posts/${post._id}/like`,
+          `${process.env.REACT_APP_BACKEND}/posts/${post._id}/like`,
           {},
           { withCredentials: true }
         );
@@ -50,7 +50,7 @@ const BlogPost = () => {
     try {
       if (!commentText || commentText === "") return;
       const response = await axios.post(
-        `http://localhost:4000/posts/${post._id}/comment`,
+        `${process.env.REACT_APP_BACKEND}/posts/${post._id}/comment`,
         { text: commentText },
         { withCredentials: true }
       );
@@ -67,7 +67,7 @@ const BlogPost = () => {
     const fetchPost = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:4000/posts/${postId}`
+          `${process.env.REACT_APP_BACKEND}/posts/${postId}`
         );
         setPost(response.data.post);
       } catch (error) {

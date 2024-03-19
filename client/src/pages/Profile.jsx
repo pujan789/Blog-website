@@ -3,7 +3,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import "../styles/profile.css";
 import Navbar from "./components/Navbar"; // Update the import path according to your project structure
-import useAuth from "./components/useAuth";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useState, useEffect } from "react";
@@ -23,7 +22,7 @@ const Profile = () => {
           navigate("/login");
         } else {
           try {
-            const { data } = await axios.get("http://localhost:4000/profile", {
+            const { data } = await axios.get(`${process.env.REACT_APP_BACKEND}/profile`, {
               withCredentials: true,
             });
             if (data.user) {
@@ -45,7 +44,7 @@ const Profile = () => {
   const reloadAvatar = async () => {
     try {
       const { data } = await axios.put(
-        "http://localhost:4000/avatar",
+        `${process.env.REACT_APP_BACKEND}/avatar`,
         {},
         {
           withCredentials: true,

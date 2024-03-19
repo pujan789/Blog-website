@@ -15,7 +15,7 @@ const useAuth = () => {
         navigate("/login");
       } else {
         try {
-          const { data } = await axios.get("http://localhost:4000/profile", {
+          const { data } = await axios.get(process.env.REACT_APP_BACKEND + "/profile", {
             withCredentials: true
           });
           if (data.user) {

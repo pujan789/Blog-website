@@ -12,7 +12,7 @@ const CreateBlog = () => {
   const [postImage, setPostImage] = useState(null); // New state for image
   const [imagePreview, setImagePreview] = useState(''); // New state for image preview
   const navigate = useNavigate();
-  const user = useAuth();
+  useAuth();
 
   const modules = {
     toolbar: [
@@ -62,7 +62,7 @@ const CreateBlog = () => {
 
     try {
       // Submit FormData
-      await axios.post('http://localhost:4000/blog', formData, {
+      await axios.post(process.env.REACT_APP_BACKEND +'/blog', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

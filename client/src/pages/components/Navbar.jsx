@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useCookies } from "react-cookie";
-import { useNavigate, Link, useSearchParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 
 
@@ -15,7 +15,7 @@ const Navbar = ({isAuthenticated}) => {
         {}
       } else {
         try {
-          const { data } = await axios.get("http://localhost:4000/profile", {
+          const { data } = await axios.get(process.env.REACT_APP_BACKEND +  "/profile", {
             withCredentials: true
           });
           if (data.user) {
