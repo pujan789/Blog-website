@@ -22,7 +22,7 @@ app.listen(PORT, () => {
 console.log(CORS_URL)
 app.use(
   cors({
-    origin: "*",
+    origin: "*://*",
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
