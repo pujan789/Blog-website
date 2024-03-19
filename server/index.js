@@ -20,7 +20,7 @@ app.listen(PORT, () => {
 });
 
 const corsOpts = {
-  origin: '*',
+  origin: process.env.CORS_URL,
   credentials: true,
   methods: ['GET','POST','HEAD','PUT','PATCH','DELETE'],
   allowedHeaders: ['Content-Type'],
