@@ -22,6 +22,7 @@ const Profile = () => {
           navigate("/login");
         } else {
           try {
+            console.log(process.env.REACT_APP_BACKEND)
             const { data } = await axios.get(`${process.env.REACT_APP_BACKEND}/profile`, {
               withCredentials: true,
             });
