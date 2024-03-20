@@ -18,11 +18,11 @@ const Profile = () => {
 
     useEffect(() => {
       const verifyCookie = async () => {
+        console.log(process.env.REACT_APP_BACKEND)
         if (!cookies.token) {
           navigate("/login");
         } else {
           try {
-            console.log(process.env.REACT_APP_BACKEND)
             const { data } = await axios.get(`${process.env.REACT_APP_BACKEND}/profile`, {
               withCredentials: true,
             });
