@@ -46,6 +46,10 @@ module.exports.Login = async (req, res) => { // Removed 'next' as it's not used
      res.cookie("token", token, {
        withCredentials: true,
        httpOnly: false,
+       maxAge: 3600000, // 1 hour
+       httpOnly: true,
+       secure: true, // Remember: this requires your site to be served over HTTPS
+       sameSite: 'None',
      });
      return res.status(201).json({ message: "User logged in successfully", success: true }); // Added 'return'
   } catch (error) {
