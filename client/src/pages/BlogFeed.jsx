@@ -7,7 +7,7 @@ import useAuth from './components/useAuth'; // Update the import path according 
 
 const BlogFeed = () => {
   const [posts, setPosts] = useState([]);
-  useAuth(); // for Protecting this page.
+  // useAuth(); // for Protecting this page.
 
   function convertToPlain(html){
     var tempDivElement = document.createElement("div");
