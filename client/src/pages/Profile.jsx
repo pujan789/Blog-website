@@ -29,7 +29,7 @@ const Profile = () => {
               setUser(data.user);}
           } catch (error) {
             console.error("Verification failed", error);
-            removeCookie("token", { path: "/" });
+            // removeCookie("token", { path: "/" });
             navigate("/login");
           }
         }
