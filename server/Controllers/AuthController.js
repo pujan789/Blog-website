@@ -44,14 +44,10 @@ module.exports.Login = async (req, res) => { // Removed 'next' as it's not used
     }
      const token = createSecretToken(user._id);
      res.cookie("token", token, {
-       withCredentials: true,
-       httpOnly: false,
-       maxAge: 3600000, // 1 hour
-       httpOnly: true,
-       secure: true, // Remember: this requires your site to be served over HTTPS
-       sameSite: 'None',
-     });
-     return res.status(201).json({ message: "User logged in successfully", success: true }); // Added 'return'
+      withCredentials: true,
+      httpOnly: false,
+    });
+       return res.status(201).json({ message: "User logged in successfully", success: true }); // Added 'return'
   } catch (error) {
     console.error(error);
     return res.status(500).json({ message: "An error occurred during the login process" }); // Proper error handling
