@@ -24,8 +24,6 @@ function App() {
         <Route path="/post/:postId" element={<BlogPost />} />
         <Route path="/create" element={<CreateBlog />} />
         <Route path="/read" element={<BlogFeed />} />
-
-        
       </Routes>
     </div>
   );
