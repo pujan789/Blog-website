@@ -4,11 +4,15 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import "../styles/App.css";
 import Navbar from './components/Navbar';
+import { useNavigate } from "react-router-dom";
 
 
 
 
 function HomePage() {
+
+  const navigate = useNavigate();
+
   return (
     <div className="landing-page">
     <Navbar/>
@@ -18,7 +22,7 @@ function HomePage() {
       </header>
 
       <div className='text-center'>
-        <button type="button" className="cta btn btn-dark mt-2 mb-3 ">Start reading</button>
+        <button type="button" className="cta btn btn-dark mt-2 mb-3 " onClick={() => {navigate("/read");}}>Start reading</button>
       </div>
 
       <div className='text-center'>
