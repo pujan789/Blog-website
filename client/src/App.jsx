@@ -9,13 +9,12 @@ import Profile from "./pages/Profile";
 import BlogPost from "./pages/BlogPost"; // Import your BlogPost component
 import CreateBlog from "./pages/CreateBlog";
 import BlogFeed from "./pages/BlogFeed"; // Update the import path according to your project structure
-import { BrowserRouter } from "react-router-dom";
-
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
   return (
     <div className="App">
-      <BrowserRouter>
+      <Router>
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<Login />} />
@@ -25,7 +24,7 @@ function App() {
           <Route path="/create" element={<CreateBlog />} />
           <Route path="/read" element={<BlogFeed />} />
         </Routes>
-      </BrowserRouter>
+      </Router>
     </div>
   );
 }

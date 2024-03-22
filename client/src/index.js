@@ -4,7 +4,6 @@ import App from "./App";
 import { BrowserRouter } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import {disableReactDevTools} from "@fvilers/disable-react-devtools"
-import {Route, Routes} from 'react-router-dom';
 
 if (process.env.NODE_ENV === "production"){
   disableReactDevTools()
