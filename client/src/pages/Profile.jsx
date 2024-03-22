@@ -18,10 +18,10 @@ const Profile = () => {
 
     useEffect(() => {
       const verifyCookie = async () => {
-        if (!cookies.token) {
-          console.log("cookies not found")
-          navigate("/login");
-        } else {
+        // if (!cookies.token) {
+        //   console.log("cookies not found")
+        //   navigate("/login");
+        // } else {
           try {
             console.log("fetching profile")
             const { data } = await axios.get(`${process.env.REACT_APP_BACKEND}/profile`, {
@@ -40,7 +40,7 @@ const Profile = () => {
             removeCookie("token", { path: "/" });
             navigate("/login");
           }
-        }
+        // }
       };
       verifyCookie();
     }, [cookies, navigate, removeCookie]);
