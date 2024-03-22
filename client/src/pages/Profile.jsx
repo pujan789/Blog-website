@@ -19,15 +19,19 @@ const Profile = () => {
     useEffect(() => {
       const verifyCookie = async () => {
         if (!cookies.token) {
+          console.log("cookies not found")
           navigate("/login");
         } else {
           try {
+            console.log("fetching profile")
             const { data } = await axios.get(`${process.env.REACT_APP_BACKEND}/profile`, {
               withCredentials: true,
             });
             if (data.user) {
               setUser(data.user);
+              console("set user properties in user")
             } else {
+              console.log("data not fetched and removed cookie")
               removeCookie("token");
               navigate("/login");
             }
