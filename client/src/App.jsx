@@ -2,7 +2,7 @@ import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import HomePage from "./pages/HomePage";
-import Login from "/pages/Login";
+import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Profile from "./pages/Profile";
 import BlogPost from "./pages/BlogPost"; // Import your BlogPost component
