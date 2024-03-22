@@ -64,7 +64,7 @@ const Navbar = ({isAuthenticated}) => {
                 <a
                   className="nav-link active"
                   aria-current="page"
-                  href="/login"
+                  href="/login"q
                 >
                   Login
                 </a>
