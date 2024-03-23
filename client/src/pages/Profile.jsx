@@ -17,6 +17,9 @@ const Profile = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
+      console.log(cookies)
+      // const newCookie = get("token", {doNotParse : false})
+      console.log(newCookie)
       const verifyCookie = async () => {
         if (!cookies.token) {
           console.log("cookies not found")
