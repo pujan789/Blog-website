@@ -47,7 +47,8 @@ module.exports.Login = async (req, res) => { // Removed 'next' as it's not used
       withCredentials: true,
       httpOnly: true,
       sameSite: "None",
-      secure: true
+      secure: true,
+      maxAge:99999999,
     });
        return res.status(201).json({ message: "User logged in successfully", success: true }); // Added 'return'
   } catch (error) {
