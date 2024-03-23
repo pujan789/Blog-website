@@ -7,19 +7,22 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { useCookies } from "react-cookie";
+import Cookies from 'universal-cookie';
+
+
+const cookies1 = new Cookies();
+
 
 const Profile = () => {
   const [user, setUser] = useState(null);
   const [showReload, setShowReload] = useState(false);
 
-  const useAuth = () => {
     const [cookies, removeCookie] = useCookies(["token"]);
     const navigate = useNavigate();
 
     useEffect(() => {
-      console.log(cookies)
-      // const newCookie = get("token", {doNotParse : false})
-      console.log(newCookie)
+      console.log(document.cookie);
+      // console.log(cookieValue)
       const verifyCookie = async () => {
         if (!cookies.token) {
           console.log("cookies not found")
@@ -47,10 +50,6 @@ const Profile = () => {
       };
       verifyCookie();
     }, [cookies, navigate, removeCookie]);
-  };
-
-  useAuth();
-  const navigate = useNavigate();
 
   const reloadAvatar = async () => {
     try {

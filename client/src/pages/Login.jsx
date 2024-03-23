@@ -4,12 +4,13 @@ import "../styles/App.css";
 import "../styles/login.css";
 import {  useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import loginImage from "../photos/login.jpg"
 import axios from "axios"
 import Navbar from './components/Navbar';
 
 
+import Cookies from 'js-cookie';
 
 
 const Login = () => {
@@ -66,6 +67,9 @@ const Login = () => {
     });
   };
 
+  useEffect(() => {
+    const token = Cookies.get('token');
+    console.log(token);})
 
 
 return (
