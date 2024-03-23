@@ -60,9 +60,9 @@ const Profile = () => {
       );
       setUser((prevUser) => ({
         ...prevUser,
-        avatar: data.avatar, // Update the avatar in the state
+        avatar: data.avatar,
       }));
-      window.location.reload(); // Refresh the page
+      window.location.reload(); 
     } catch (error) {
       console.error("Error updating avatar:", error);
     }
