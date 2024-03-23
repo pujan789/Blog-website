@@ -20,7 +20,7 @@ const Profile = () => {
       const verifyCookie = async () => {
         if (!cookies.token) {
           console.log("cookies not found")
-          // navigate("/login");
+          navigate("/login");
         } else {
           try {
             console.log("fetching profile")
