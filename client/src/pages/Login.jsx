@@ -11,6 +11,7 @@ import Navbar from './components/Navbar';
 
 
 
+
 const Login = () => {
   const navigate = useNavigate();
   const [inputValue, setInputValue] = useState({
@@ -39,7 +40,7 @@ const Login = () => {
     e.preventDefault();
     try {
       const { data } = await axios.post(
-        `${process.env.REACT_APP_BACKEND}/login`,
+        `${import.meta.env.VITE_APP_BACKEND}/login`,
         {
           ...inputValue,
         },

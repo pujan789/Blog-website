@@ -7,16 +7,17 @@ import axios from 'axios';
 
 const Navbar = ({isAuthenticated}) => {
   const navigate = useNavigate();
-  const [cookies, removeCookie] = useCookies(["token"]);
+  const [cookies, setCookie ,removeCookie] = useCookies(["token"]);
   const [isAuth, setAuth] = useState(false)
 
   useEffect(() => {
+    console.log(cookies.token)
     const verifyCookie = async () => {
       if (!cookies.token) {
         {}
       } else {
         try {
-          const { data } = await axios.get(process.env.REACT_APP_BACKEND +  "/profile", {
+          const { data } = await axios.get(import.meta.env.VITE_APP_BACKEND +  "/profile", {
             withCredentials: true
           });
           if (data.user) {
@@ -34,6 +35,7 @@ const Navbar = ({isAuthenticated}) => {
 
   const Logout = () => {
     removeCookie("token", { path: "/" });
+    setCookie("token", null)
     navigate("/login");
   };
 
@@ -41,9 +43,9 @@ const Navbar = ({isAuthenticated}) => {
     <div className="landing-page">
       <nav className="navbar navbar-expand-lg navbar-light custom-navbar">
         <div className="container-fluid">
-          <a className="navbar-brand head-title" href="/">
+          <Link className="navbar-brand head-title" to="/">
             BlogFluent
-          </a>
+          </Link>
           <button
             className="navbar-toggler"
             type="button"
@@ -83,23 +85,23 @@ const Navbar = ({isAuthenticated}) => {
             : 
             <ul className="navbar-nav">
               <li className="nav-item">
-                <a
+                <Link
                   className="nav-link active"
                   aria-current="page"
-                  href="/create"
+                  to="/create"
                 >
                   Write
-                </a>
+                </Link>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="/profile">
+                <Link className="nav-link" to="/profile">
                   Profile
-                </a>
+                </Link>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="/read">
+                <Link className="nav-link" to="/read">
                   Read
-                </a>
+                </Link>
               </li>
               <li className="nav-item">
                 <button

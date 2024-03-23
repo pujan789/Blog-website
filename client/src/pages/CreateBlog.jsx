@@ -62,7 +62,7 @@ const CreateBlog = () => {
 
     try {
       // Submit FormData
-      await axios.post(process.env.REACT_APP_BACKEND +'/blog', formData, {
+      await axios.post(import.meta.env.VITE_APP_BACKEND +'/blog', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

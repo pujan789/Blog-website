@@ -15,7 +15,7 @@ const useAuth = () => {
         navigate("/login");
       } else {
         try {
-          const { data } = await axios.get(process.env.REACT_APP_BACKEND + "/profile", {
+          const { data } = await axios.get(import.meta.env.VITE_APP_BACKEND + "/profile", {
             withCredentials: true
           });
           if (data.user) {

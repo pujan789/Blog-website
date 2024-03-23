@@ -19,7 +19,7 @@ const BlogFeed = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await axios.get(`${process.env.REACT_APP_BACKEND}/posts`, {
+        const response = await axios.get(`${import.meta.env.VITE_APP_BACKEND}/posts`, {
           withCredentials: true
         });
         setPosts(response.data.posts);
@@ -39,7 +39,7 @@ const BlogFeed = () => {
     {posts.map((post, index) => (
       <div key={index} className="col-md-6 mb-4 mt-2" >
         <div className="card">
-        <img src={`${process.env.REACT_APP_BACKEND}/${post.image}`} className="card-img-top" alt={post.postTitle} />
+        <img src={`${import.meta.env.VITE_APP_BACKEND}/${post.image}`} className="card-img-top" alt={post.postTitle} />
 
           <div className="card-body">  
             <h5 className="card-title fw-bold fs-5c mb-3">{post.postTitle}</h5>

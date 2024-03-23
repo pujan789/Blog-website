@@ -18,18 +18,18 @@ const Profile = () => {
 
     useEffect(() => {
       const verifyCookie = async () => {
-        // if (!cookies.token) {
-        //   console.log("cookies not found")
-        //   navigate("/login");
-        // } else {
+        if (!cookies.token) {
+          console.log("cookies not found")
+          // navigate("/login");
+        } else {
           try {
             console.log("fetching profile")
-            const { data } = await axios.get(`${process.env.REACT_APP_BACKEND}/profile`, {
+            const { data } = await axios.get(`${import.meta.env.VITE_APP_BACKEND}/profile`, {
               withCredentials: true,
             });
             if (data.user) {
               setUser(data.user);
-              console("set user properties in user")
+              console.log("set user properties in user")
             } else {
               console.log("data not fetched and removed cookie")
               removeCookie("token");
@@ -40,7 +40,7 @@ const Profile = () => {
             removeCookie("token", { path: "/" });
             navigate("/login");
           }
-        // }
+        }
       };
       verifyCookie();
     }, [cookies, navigate, removeCookie]);
@@ -52,7 +52,7 @@ const Profile = () => {
   const reloadAvatar = async () => {
     try {
       const { data } = await axios.put(
-        `${process.env.REACT_APP_BACKEND}/avatar`,
+        `${import.meta.env.VITE_APP_BACKEND}/avatar`,
         {},
         {
           withCredentials: true,
@@ -158,7 +158,7 @@ const Profile = () => {
                                   <img src={user.avatar} alt="profile" />
                                 </span>
                                 <span className="username">
-                                  <a href="/#">{user.username}</a>
+                                  <Link to="/">{user.username}</Link>
                                 </span>
                               </div>
 
@@ -182,22 +182,22 @@ const Profile = () => {
                                     : convertToPlain(post.postBody)}
                                 </p>
                               </div>
-                              <div class="timeline-likes">
-                                <div class="stats-right">
-                                  <span class="stats-text">
+                              <div className="timeline-likes">
+                                <div className="stats-right">
+                                  <span className="stats-text">
                                     {post.comments.length} comments
                                   </span>
                                 </div>
-                                <div class="stats">
-                                  <span class="fa-stack fa-fw stats-icon">
-                                    <i class="fa fa-circle fa-stack-2x text-danger"></i>
-                                    <i class="fa fa-heart fa-stack-1x fa-inverse t-plus-1"></i>
+                                <div className="stats">
+                                  <span className="fa-stack fa-fw stats-icon">
+                                    <i className="fa fa-circle fa-stack-2x text-danger"></i>
+                                    <i className="fa fa-heart fa-stack-1x fa-inverse t-plus-1"></i>
                                   </span>
-                                  <span class="fa-stack fa-fw stats-icon">
-                                    <i class="fa fa-circle fa-stack-2x text-primary"></i>
-                                    <i class="fa fa-thumbs-up fa-stack-1x fa-inverse"></i>
+                                  <span className="fa-stack fa-fw stats-icon">
+                                    <i className="fa fa-circle fa-stack-2x text-primary"></i>
+                                    <i className="fa fa-thumbs-up fa-stack-1x fa-inverse"></i>
                                   </span>
-                                  <span class="stats-total">
+                                  <span className="stats-total">
                                     {post.likes.length} likes
                                   </span>
                                 </div>
