@@ -46,7 +46,7 @@ module.exports.Login = async (req, res) => { // Removed 'next' as it's not used
      res.cookie("token", token, {
       withCredentials: true,
       httpOnly: true,
-      sameSite: None
+      sameSite: "none"
     });
        return res.status(201).json({ message: "User logged in successfully", success: true }); // Added 'return'
   } catch (error) {
