@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useCookies } from "react-cookie";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import axios from 'axios';
+
 
 
 const Navbar = ({isAuthenticated}) => {
@@ -61,13 +62,13 @@ const Navbar = ({isAuthenticated}) => {
           {(!isAuth) ?
             <ul className="navbar-nav">
               <li className="nav-item">
-                <a
+                <Link
                   className="nav-link active"
                   aria-current="page"
-                  href="/login"q
+                  to="/login"
                 >
                   Login
-                </a>
+                </Link>
               </li>
               <li className="nav-item">
                 <button
