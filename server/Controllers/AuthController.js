@@ -7,28 +7,7 @@ const { faker } = require('@faker-js/faker');
 
 
 
-module.exports.Signup = async (req, res) => { // Removed 'next' as it's not needed here
-  try {
-    const { email, password, username, createdAt } = req.body;
-    const existingUser = await User.findOne({ email });
-    if (existingUser) {
-      return res.json({ message: "User already exists" });
-    }
-    const user = await User.create({ email, password, username, createdAt });
-    const token = createSecretToken(user._id);
-    res.cookie("token", token, {
-      withCredentials: true,
-      httpOnly: false,
-    });
-    return res.status(201).json({ message: "User signed in successfully", success: true, user }); // Added 'return' to ensure function exits after this line
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({ message: "An error occurred during the signup process" }); // Proper error handling
-  }
-};
-
-
-module.exports.Login = async (req, res) => { // Removed 'next' as it's not used
+module.exports.Login = async (req, res) => {
   try {
     const { email, password } = req.body;
     if(!email || !password){
@@ -42,21 +21,30 @@ module.exports.Login = async (req, res) => { // Removed 'next' as it's not used
     if (!auth) {
       return res.json({message:'Incorrect password or email'});
     }
-     const token = createSecretToken(user._id);
-     res.cookie("token", token, {
-      withCredentials: true,
-      httpOnly: true,
-      sameSite: "None",
-      secure: true,
-      maxAge:99999999,
-    });
-       return res.status(201).json({ message: "User logged in successfully", success: true }); // Added 'return'
+    const token = createSecretToken(user._id);
+    return res.status(201).json({ message: "User logged in successfully", success: true, token });
   } catch (error) {
     console.error(error);
-    return res.status(500).json({ message: "An error occurred during the login process" }); // Proper error handling
+    return res.status(500).json({ message: "An error occurred during the login process" });
   }
 };
 
+// Signup Controller
+module.exports.Signup = async (req, res) => {
+  try {
+    const { email, password, username, createdAt } = req.body;
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.json({ message: "User already exists" });
+    }
+    const user = await User.create({ email, password, username, createdAt });
+    const token = createSecretToken(user._id);
+    return res.status(201).json({ message: "User signed in successfully", success: true, user, token });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: "An error occurred during the signup process" });
+  }
+};
 module.exports.createPost = async (req, res) => {
   try {
     const { postTitle, postBody } = req.body;
