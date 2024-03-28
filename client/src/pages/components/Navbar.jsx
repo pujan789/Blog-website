@@ -9,16 +9,22 @@ const Navbar = ({isAuthenticated}) => {
   const navigate = useNavigate();
   const [cookies, setCookie ,removeCookie] = useCookies(["token"]);
   const [isAuth, setAuth] = useState(false)
+  axios.defaults.withCredentials = true;
 
   useEffect(() => {
-    console.log(cookies.token)
     const verifyCookie = async () => {
+      console.log(cookies.token)
       if (!cookies.token) {
         {}
       } else {
         try {
+          axios.defaults.withCredentials = true
           const { data } = await axios.get(import.meta.env.VITE_APP_BACKEND +  "/profile", {
-            withCredentials: true
+              headers: {
+                'Access-Control-Allow-Origin': 'https://blog-website-backend-gc3f.onrender.com', 
+                'Content-Type': 'application/json'
+            },
+            withCredentials:true
           });
           if (data.user) {
             setAuth(true);}
@@ -34,7 +40,7 @@ const Navbar = ({isAuthenticated}) => {
 
 
   const Logout = () => {
-    removeCookie("token", { path: "/" });
+    // removeCookie("token", { path: "/" });
     setCookie("token", null)
     navigate("/login");
   };

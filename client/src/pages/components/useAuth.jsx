@@ -21,12 +21,12 @@ const useAuth = () => {
           if (data.user) {
             setUser(data.user);
           } else {
-            removeCookie("token");
+            // removeCookie("token");
             navigate("/login");
           }
         } catch (error) {
           console.error("Verification failed", error);
-          removeCookie("token", { path: '/' });
+          // removeCookie("token", { path: '/' });
           navigate("/login");
         }
       }

@@ -6,6 +6,7 @@ const jwt = require("jsonwebtoken");
 module.exports.userVerification = (req, res, next) => {
   const token = req.cookies.token;
   if (!token) {
+
     return res.status(401).json({ message: "No token provided, authorization denied" });
   }
   jwt.verify(token, process.env.TOKEN_KEY, async (err, decoded) => {

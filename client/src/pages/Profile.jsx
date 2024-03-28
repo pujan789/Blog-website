@@ -7,10 +7,8 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { useCookies } from "react-cookie";
-import Cookies from 'universal-cookie';
 
 
-const cookies1 = new Cookies();
 
 
 const Profile = () => {
@@ -20,36 +18,46 @@ const Profile = () => {
     const [cookies, removeCookie] = useCookies(["token"]);
     const navigate = useNavigate();
 
+
     useEffect(() => {
-      console.log(document.cookie);
-      // console.log(cookieValue)
       const verifyCookie = async () => {
+        console.log(cookies.token)
         if (!cookies.token) {
           console.log("cookies not found")
           navigate("/login");
         } else {
           try {
             console.log("fetching profile")
+            axios.defaults.withXSRFToken = true
+            axios.defaults.withCredentials = true
+            res.setHeader('Access-Control-Allow-Credentials',true);
+
+
+
             const { data } = await axios.get(`${import.meta.env.VITE_APP_BACKEND}/profile`, {
               withCredentials: true,
+              headers: {
+                  'Access-Control-Allow-Origin': '*', 
+                  'Content-Type': 'application/json'
+              }
             });
             if (data.user) {
               setUser(data.user);
               console.log("set user properties in user")
             } else {
               console.log("data not fetched and removed cookie")
-              removeCookie("token");
+              // removeCookie("token");
               navigate("/login");
             }
           } catch (error) {
             console.error("Verification failed", error);
-            removeCookie("token", { path: "/" });
+            // removeCookie("token", { path: "/" });
             navigate("/login");
           }
         }
       };
       verifyCookie();
-    }, [cookies, navigate, removeCookie]);
+    });
 
   const reloadAvatar = async () => {
     try {

@@ -45,15 +45,13 @@ const Login = () => {
       const { data } = response;
       if (data.success) {
         // Save the token using js-cookie
-        Cookies.set("token", data.token, { expires: 7 }); // Save for 7 days
+        Cookies.set("token", data.token, { expires: 7, secure: true, sameSite: 'None', httpOnly:false }); // Save for 7 days
 
-        // Or use localStorage
-        // localStorage.setItem('token', data.token);
 
         handleSuccess(data.message);
         setTimeout(() => {
           navigate("/profile");
-        }, 1000);
+        }, 5000);
       } else {
         handleError(data.message);
       }
